@@ -218,16 +218,22 @@ exports.generatePrompt = async (req, res) => {
         timeout: 30000,
       }
     );
+
     console.log("--------------Ended--------------");
 
-    const result = response.data.choices?.[0]?.message?.content || "";
+    const aiResponse = response.data.choices?.[0]?.message?.content || "";
+    const canvasData = JSON.parse(aiResponse);
 
-    console.log(result);
+    if (canvasData.objects && Array.isArray(canvasData.objects)) {
+      canvasData.objects = canvasData.objects.map((obj) => ({
+        ...obj,
+        lockMovementX: true,
+        lockMovementY: true,
+      }));
+    }
 
-    const aiResponse = response.data.choices[0]?.message?.content || "";
-
-    // 🚀 Replace canvasData in DB with AI response
-    design.canvasData = aiResponse;
+    // Replace canvasData in DB with updated data
+    design.canvasData = JSON.stringify(canvasData);
     await design.save();
 
     res.status(200).json({
