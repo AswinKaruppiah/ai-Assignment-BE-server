@@ -164,10 +164,8 @@ exports.generatePrompt = async (req, res) => {
             text: `
 "Always return a valid Fabric.js JSON object (no extra text, no markdown).",
 "Preserve all existing images from design.objects.",
-"Image placement:",
-" - If only one image → make it a full-width hero/cover image at the top (40–50% of canvas height).",
 "Text placement & style:",
-" - Headline → large, bold, top-centered or over hero image, eye-catching.",
+" - Headline → mid, bold, top-centered or over hero image, eye-catching.",
 " - Highlights → mid section, professional font, aligned left or center, use spacing.",
 " - Call-to-action → bold, bottom area, with contrast color background or highlight.",
 "Visual style:",
